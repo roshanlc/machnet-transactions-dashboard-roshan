@@ -10,7 +10,7 @@ import (
 // such as savings, current, ...
 type AccountType struct {
 	gorm.Model
-	Type string `gorm:"uniqueIndex" json:"type"`
+	Type string `json:"type"`
 	// Accounts []Account
 }
 

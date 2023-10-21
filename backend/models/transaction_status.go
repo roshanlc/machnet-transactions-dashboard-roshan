@@ -10,7 +10,7 @@ import (
 // such as pending, aborted, success, failed, ...
 type TransactionStatus struct {
 	gorm.Model
-	Status string `gorm:"uniqueIndex" json:"status"`
+	Status string `json:"status"`
 }
 
 func (status TransactionStatus) String() string {

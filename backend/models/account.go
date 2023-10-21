@@ -9,7 +9,7 @@ import (
 // Acount struct to hold info about an account
 type Account struct {
 	gorm.Model
-	Number        string  `gorm:"uniqueIndex" json:"number"` // acount number
+	Number        string  ` json:"number"` // acount number
 	CustomerID    uint    // many to one ,i.e a customer can have many accounts
 	AccountTypeID uint    // type of the account
 	Balance       float64 // balance in the account

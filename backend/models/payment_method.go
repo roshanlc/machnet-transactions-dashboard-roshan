@@ -6,5 +6,5 @@ import "gorm.io/gorm"
 // such as direct transfer, check deposit, ...
 type PaymentMethod struct {
 	gorm.Model
-	Method string `gorm:"uniqueIndex" json:"method"`
+	Method string `json:"method"`
 }

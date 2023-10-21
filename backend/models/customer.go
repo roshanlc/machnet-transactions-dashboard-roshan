@@ -9,7 +9,7 @@ import (
 // Information about a customer
 type Customer struct {
 	gorm.Model
-	Email    string    `gorm:"uniqueIndex" json:"email"`
+	Email    string    `json:"email"`
 	Name     string    `json:"name"`
 	Accounts []Account `json:"accounts"`
 	BankID   uint      `json:"bank"`

@@ -9,7 +9,7 @@ import (
 // Bank struct holds details about a bank
 type Bank struct {
 	gorm.Model
-	Name        string `gorm:"uniqueIndex" json:"name"`
+	Name        string `json:"name"`
 	Description string `json:"description"`
 	Customers   []Customer
 }
