@@ -31,7 +31,9 @@ func main() {
 		c.JSON(200, customer)
 
 	})
+	router.GET("/transactions/:id", app.singleTransactionHandler)
 	router.GET("/transactions", paginationMiddleware, app.transactionHandler)
+
 	router.Run(":9000")
 }
 

@@ -62,3 +62,8 @@ func (app *Application) transactionHandler(c *gin.Context) {
 			ItemsPerPage: pagination.Limit},
 	})
 }
+
+func (app *Application) singleTransactionHandler(c *gin.Context) {
+	id := c.Param("id")
+	c.String(200, id)
+}
