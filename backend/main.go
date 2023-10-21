@@ -1,11 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"log"
+	"math"
 	"math/rand"
 	"time"
 
+	"github.com/gin-gonic/gin"
 	"github.com/go-faker/faker/v4"
 	"github.com/roshanlc/machent-assignment-backend/models"
 	"gorm.io/driver/sqlite"
@@ -38,20 +39,14 @@ func main() {
 	db := setupDB()
 	populateDB(db)
 
-	// app := Application{DB: db}
+	app := Application{DB: db}
 
-	// router := gin.Default()
+	router := gin.Default()
 
-	// router.GET("/", func(c *gin.Context) {
-	// 	var customer models.Customer
-	// 	db.Preload("Accounts").Preload("Accounts.AccountType").Preload("Accounts.Customer").Preload("Accounts.Customer.Bank").Find(&customer)
-	// 	c.JSON(200, customer)
+	router.GET("/transactions/:id", app.singleTransactionHandler)
+	router.GET("/transactions", paginationMiddleware, app.transactionHandler)
 
-	// })
-	// router.GET("/transactions/:id", app.singleTransactionHandler)
-	// router.GET("/transactions", paginationMiddleware, app.transactionHandler)
-
-	// router.Run(":9000")
+	router.Run(":9000")
 }
 
 // Setup db connection and tables
@@ -196,13 +191,17 @@ func populateDB(db *gorm.DB) {
 	// first to second, second to third....last to first to complete it
 	for i := 0; i < len(accounts); i++ {
 		var tx models.Transaction
+
 		// random index for tx type
-		index := rand.Intn((len(transcType)) - 1)
+		index := rand.Intn(len(transcType))
+
+		// amount of money transaction
+		amt := math.Floor((5000.0 * rand.ExpFloat64()) * math.Pow(-1, float64(index)))
 
 		if i == len(accounts)-1 {
 			tx = models.Transaction{
 				Date:                time.Now(),
-				Amount:              rand.Float64() * 5000,
+				Amount:              amt,
 				FromAccountID:       accounts[i].ID,
 				ToAccountID:         accounts[0].ID,
 				TransactionStatusID: transcType[index].ID,
@@ -211,7 +210,7 @@ func populateDB(db *gorm.DB) {
 		} else {
 			tx = models.Transaction{
 				Date:                time.Now(),
-				Amount:              rand.Float64() * 5000,
+				Amount:              amt,
 				FromAccountID:       accounts[i].ID,
 				ToAccountID:         accounts[i+1].ID,
 				TransactionStatusID: transcType[index].ID,
@@ -226,10 +225,6 @@ func populateDB(db *gorm.DB) {
 		return
 	}
 
-	for _, val := range transx {
-		fmt.Printf("%+v\n", val)
-	}
-
-	fmt.Println("Succeded in populating db.")
+	log.Println("Succeded in populating db.")
 
 }
