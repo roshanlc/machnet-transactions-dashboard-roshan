@@ -54,6 +54,11 @@ func (app *Application) transactionHandler(c *gin.Context) {
 		total = 1
 	}
 
+	// check for few items that might be left
+	if total%int64(pagination.Limit) > 0 {
+		total++
+	}
+
 	// next page for pagination
 	var next int
 
