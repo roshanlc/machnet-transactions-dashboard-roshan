@@ -2,16 +2,37 @@ package main
 
 import (
 	"fmt"
+	"time"
 
+	"github.com/gin-gonic/gin"
 	"github.com/roshanlc/machent-assignment-backend/models"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
+// struct to hold Application level
+// values and connections
+type Application struct {
+	DB *gorm.DB
+}
+
 func main() {
 
 	db := setupDB()
 	populateDB(db)
+
+	app := Application{DB: db}
+
+	router := gin.Default()
+
+	router.GET("/", func(c *gin.Context) {
+		var customer models.Customer
+		db.Preload("Accounts").Preload("Accounts.AccountType").Preload("Accounts.Customer").Preload("Accounts.Customer.Bank").Find(&customer)
+		c.JSON(200, customer)
+
+	})
+	router.GET("/transactions", paginationMiddleware, app.transactionHandler)
+	router.Run(":9000")
 }
 
 // Setup db connection and tables
@@ -95,7 +116,18 @@ func populateDB(db *gorm.DB) {
 	if result.Error != nil {
 		return
 	}
-	// db.Where("customer_id = ?", user.ID).Find(&accounts)
+
+	transc := &models.Transaction{Date: time.Now(),
+		Amount:              65.699,
+		FromAccountID:       accountOne.ID,
+		ToAccountID:         accountTwo.ID,
+		TransactionStatusID: transcType.ID}
+
+	result = db.Create(&transc)
+	if result.Error != nil {
+		return
+	}
+
 	fmt.Println("Succeded in populating db.")
 
 }

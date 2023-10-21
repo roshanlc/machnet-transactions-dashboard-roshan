@@ -2,3 +2,5 @@
 .vscode/
 lessons.md
 *.db
+*.exe
+all.txt
