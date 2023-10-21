@@ -19,11 +19,11 @@ type Account struct {
 }
 
 func (acc Account) String() string {
-	return fmt.Sprintf("AccountID: %d, Number: %s, CustomerID: %v, AccountType: %v, Balance: %f",
+	return fmt.Sprintf("AccountID: %d, Number: %s, CustomerID: %v, AccountTypeID: %v, Balance: %f",
 		acc.ID,
 		acc.Number,
 		acc.CustomerID,
-		acc.AccountType,
+		acc.AccountTypeID,
 		acc.Balance,
 	)
 }

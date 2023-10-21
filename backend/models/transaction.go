@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"time"
 
 	"gorm.io/gorm"
@@ -18,4 +19,15 @@ type Transaction struct {
 	FromAccount       Account           `gorm:"foreignKey:FromAccountID"`
 	ToAccount         Account           `gorm:"foreignKey:ToAccountID"`
 	TransactionStatus TransactionStatus `gorm:"foreignKey:TransactionStatusID"`
+}
+
+func (tx Transaction) String() string {
+	return fmt.Sprintf("ID: %d,Date: %v, Amount: %f, FromAccountID: %d, ToAccountID: %d, TransactionStatusID: %d",
+		tx.ID,
+		tx.Date,
+		tx.Amount,
+		tx.FromAccountID,
+		tx.ToAccountID,
+		tx.TransactionStatusID,
+	)
 }
