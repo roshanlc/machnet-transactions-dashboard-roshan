@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"math"
 	"math/rand"
@@ -16,7 +17,8 @@ import (
 // struct to hold Application level
 // values and connections
 type Application struct {
-	DB *gorm.DB
+	DB          *gorm.DB
+	Credentails *DBCredentials
 }
 
 // generate a random number (int)
@@ -35,12 +37,20 @@ func randomize(offset, max int) int {
 }
 
 func main() {
+	// fetch db credentials from environment variables
+	dbCreds, err := readEnv()
 
-	db := setupDB()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	app := Application{Credentails: dbCreds}
+	db := setupDB(dbCreds)
 	log.Println("Created database tables")
 	populateDB(db)
 
-	app := Application{DB: db}
+	// set DB connection for application instance
+	app.DB = db
 
 	router := gin.Default()
 
@@ -52,9 +62,15 @@ func main() {
 
 // Setup db connection and tables
 // returns db connection
-func setupDB() *gorm.DB {
-	dsn := "user=postgres password=test1234 dbname=transx host=localhost port=5432 sslmode=disable"
-	// dsn := "postgres://postgres@test1234@localhost:5432/transx"
+func setupDB(dbCreds *DBCredentials) *gorm.DB {
+
+	dsn := fmt.Sprintf("user=%s password=%s dbname=%s host=%s port=%s sslmode=disable",
+		dbCreds.Username,
+		dbCreds.Password,
+		dbCreds.DBname,
+		dbCreds.Host,
+		dbCreds.Port,
+	)
 	// open db
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
@@ -77,13 +93,6 @@ func setupDB() *gorm.DB {
 	if err != nil {
 		panic("failed to create tables" + err.Error())
 	}
-
-	// // truncate tables for previous leftovers
-	// result := db.Raw("TRUNCATE TABLE transactions, transaction_statuses, payment_methods,customers,  accounts,  account_types, banks CASCADE;")
-
-	// if result.Error != nil {
-	// 	panic("failed to truncate tables" + err.Error())
-	// }
 
 	return db
 }

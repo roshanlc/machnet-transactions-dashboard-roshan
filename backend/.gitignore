@@ -4,3 +4,4 @@ lessons.md
 *.db
 *.exe
 all.txt
+.env
