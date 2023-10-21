@@ -31,6 +31,7 @@ func (app *Application) transactionHandler(c *gin.Context) {
 
 	// store the total count of items in table
 	var count int64
+	app.DB.Table("transactions").Count(&count)
 
 	// fetch customers data with limit and offset
 	app.DB.
@@ -47,7 +48,7 @@ func (app *Application) transactionHandler(c *gin.Context) {
 		Preload("TransactionStatus").
 		Find(&tx)
 
-		// total pages count
+	// total pages count
 	total := count / int64(pagination.Limit)
 
 	if total <= 0 {
@@ -55,7 +56,7 @@ func (app *Application) transactionHandler(c *gin.Context) {
 	}
 
 	// check for few items that might be left
-	if total%int64(pagination.Limit) > 0 {
+	if (total % int64(pagination.Limit)) > 0 {
 		total++
 	}
 

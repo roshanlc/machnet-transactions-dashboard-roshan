@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-faker/faker/v4"
 	"github.com/roshanlc/machent-assignment-backend/models"
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -37,6 +37,7 @@ func randomize(offset, max int) int {
 func main() {
 
 	db := setupDB()
+	log.Println("Created database tables")
 	populateDB(db)
 
 	app := Application{DB: db}
@@ -52,14 +53,16 @@ func main() {
 // Setup db connection and tables
 // returns db connection
 func setupDB() *gorm.DB {
-
+	dsn := "user=postgres password=test1234 dbname=transx host=localhost port=5432 sslmode=disable"
+	// dsn := "postgres://postgres@test1234@localhost:5432/transx"
 	// open db
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
 		panic("failed to connect database" + err.Error())
 
 	}
+
 	// create tables in db
 	err = db.AutoMigrate(&models.AccountType{},
 		&models.Account{},
@@ -69,10 +72,18 @@ func setupDB() *gorm.DB {
 		&models.TransactionStatus{},
 		&models.Transaction{},
 	)
+
 	// check for error
 	if err != nil {
 		panic("failed to create tables" + err.Error())
 	}
+
+	// // truncate tables for previous leftovers
+	// result := db.Raw("TRUNCATE TABLE transactions, transaction_statuses, payment_methods,customers,  accounts,  account_types, banks CASCADE;")
+
+	// if result.Error != nil {
+	// 	panic("failed to truncate tables" + err.Error())
+	// }
 
 	return db
 }
@@ -152,10 +163,16 @@ func populateDB(db *gorm.DB) {
 	var accounts []models.Account
 
 	for _, customer := range customers {
-		index := (int(customer.ID) / len(accountTypes))
-		if index == 5 {
-			index = 1
+		index := rand.Intn(len(accountTypes))
+		// index := (int(customer.ID) / len(accountTypes))
+
+		if index == 0 {
+			index++
 		}
+
+		// if index == 5 {
+		// 	index = 1
+		// }
 
 		acc := models.Account{
 			Number:        faker.CCNumber(),
