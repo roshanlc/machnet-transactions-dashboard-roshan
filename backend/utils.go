@@ -68,14 +68,26 @@ func setupDB(dbCreds *DBCredentials) *gorm.DB {
 		dbCreds.Host,
 		dbCreds.Port,
 	)
+
+	var retries int
+	var err error
+	var db *gorm.DB
 	// open db
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	for retries < 3 {
 
-	if err != nil {
-		panic("failed to connect database" + err.Error())
+		db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
+		if err != nil {
+			if retries > 3 {
+				log.Fatal("failed to connect database" + err.Error())
+			}
+			retries++
+			log.Println("retrying database connections....")
+			continue
+		}
+		// break out of loop in case of successfull connection
+		break
 	}
-
 	// create tables in db
 	err = db.AutoMigrate(&models.AccountType{},
 		&models.Account{},
