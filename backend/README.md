@@ -1,6 +1,7 @@
 ## Machent Assignment (Go + React) - Backend
 
 The backend for the provided assignment by Machnet. Written in Go with Gin(routing).
+
 > Runs on port 9000
 
 ### Completed
@@ -17,9 +18,11 @@ The backend for the provided assignment by Machnet. Written in Go with Gin(routi
 - Faker (for dummy data generation)
 
 ### Database
+
 - PostgreSQL
 
 ### Run With Docker
+
 Please check the [main README file](../README.md) for running with Docker compose (backend+db+frontend).
 
 ### Run Backend
@@ -41,7 +44,7 @@ go run .
 ### API DOCUMENTATION
 
 | Endpoint                 | Description                                 | Supported Query Params                                  | Response | Pagination Support |
-|--------------------------|---------------------------------------------|---------------------------------------------------------|----------|--------------------|
+| ------------------------ | ------------------------------------------- | ------------------------------------------------------- | -------- | ------------------ |
 | /api/v1/transactions     | Details of (multiple)transactions in system | **limit** (no.of items/page)<hr/>**page**(current page) | JSON     | YES                |
 | /api/v1/transactions/:id | Detail of a single transaction              |                                                         | JSON     | NO                 |
 
@@ -153,6 +156,7 @@ curl "http://localhost:9000/api/v1/transactions?limit=1&page=1"
 ```
 
 _Similarly,_
+
 ````bash
 curl "http://localhost:9000/api/v1/transactions/1
 
@@ -160,3 +164,4 @@ curl "http://localhost:9000/api/v1/transactions/1
     "data": ....
 }
 ```
+````
