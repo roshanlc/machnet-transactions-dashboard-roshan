@@ -34,9 +34,12 @@ func main() {
 	// setup router and controllers
 	router := gin.Default()
 
-	router.GET("/transactions/:id", app.singleTransactionHandler)
-	router.GET("/transactions", paginationMiddleware, app.transactionHandler)
-
+	// basic api versioning
+	v1 := router.Group("/api/v1")
+	{
+		v1.GET("/transactions/:id", app.singleTransactionHandler)
+		v1.GET("/transactions", paginationMiddleware, app.transactionHandler)
+	}
 	// run at port 9000
 	// hardcoded
 	log.Fatal(router.Run(":9000"))
