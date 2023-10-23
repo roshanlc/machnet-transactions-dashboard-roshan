@@ -1,5 +1,6 @@
 import "./App.css";
 import Error404 from "./components/pages/Error404";
+import TransactionPage from "./components/pages/transaction/TransactionPage";
 import ResponsiveDrawer from "./components/sidebar/ResponsiveDrawer";
 import { Routes, Route } from "react-router-dom";
 
@@ -12,7 +13,7 @@ function App() {
             path="/"
             element={
               <ResponsiveDrawer>
-                <p>Welcome home</p>
+                <TransactionPage />
               </ResponsiveDrawer>
             }
           />
