@@ -13,9 +13,11 @@ export interface Data {
   FromAccountID: number;
   ToAccountID: number;
   TransactionStatusID: number;
+  PaymentMethodID: number;
   FromAccount: Account;
   ToAccount: Account;
-  TransactionStatus: TransactionStatus;
+  TransactionStatus: PaymentMethod;
+  PaymentMethod: PaymentMethod;
 }
 
 export interface Account {
@@ -28,16 +30,35 @@ export interface Account {
   AccountTypeID: number;
   Balance: number;
   Customer: Customer;
-  AccountType: TransactionStatus;
+  AccountType: PaymentMethod;
 }
 
-export interface TransactionStatus {
+export interface PaymentMethod {
   ID: number;
   CreatedAt: Date;
   UpdatedAt: Date;
   DeletedAt: null;
-  type?: string;
-  status?: string;
+  type?: Type;
+  method?: Method;
+  status?: Status;
+}
+
+export enum Method {
+  CheckDeposit = "Check Deposit",
+  Transfer = "Transfer",
+  Wiring = "Wiring",
+}
+
+export enum Status {
+  Completed = "Completed",
+  Pending = "Pending",
+}
+
+export enum Type {
+  Credit = "Credit",
+  Debit = "Debit",
+  Payroll = "Payroll",
+  Savings = "Savings",
 }
 
 export interface Customer {
@@ -57,9 +78,25 @@ export interface Bank {
   CreatedAt: Date;
   UpdatedAt: Date;
   DeletedAt: null;
-  name: string;
-  description: string;
+  name: Name;
+  description: Description;
   Customers: null;
+}
+
+export enum Description {
+  BanksForAwesomePeople = "Banks for Awesome people",
+  BanksForBabalPeople = "Banks for Babal People",
+  BanksForCunningPeople = "Banks for Cunning People",
+  BanksForDarnGoodPeople = "Banks for Darn Good People",
+  BanksForETechLovers = "Banks for E-tech Lovers",
+}
+
+export enum Name {
+  ABank = "A Bank",
+  BBank = "B Bank",
+  CBank = "C Bank",
+  DBank = "D Bank",
+  EBank = "E Bank",
 }
 
 export interface Pages {
@@ -67,4 +104,5 @@ export interface Pages {
   next_page: number;
   total_pages: number;
   limit: number;
+  total_items: number;
 }

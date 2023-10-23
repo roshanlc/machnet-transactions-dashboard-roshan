@@ -1,7 +1,8 @@
 import { Box, Typography } from "@mui/material";
-import { green, red } from "@mui/material/colors";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
+import { Data } from "./models";
+const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL; // fetching from .env file
 
 export default function TransactionPage() {
   const [paginationModel, setPaginationModel] = useState({
@@ -30,9 +31,10 @@ export default function TransactionPage() {
     );
   }, [pageState?.pageInfo?.totalRowCount, setRowCountState]);
 
+  // method to fetch data from server api
   const fetchData = async (page: number = 1) => {
     const response = await fetch(
-      `http://localhost:9000/api/v1/transactions?page=${page}`
+      `${VITE_BACKEND_URL}/transactions?page=${page}`
     );
 
     const data = await response.json();
@@ -46,13 +48,16 @@ export default function TransactionPage() {
     }));
   };
 
+  // add ids to row data
+  // necessary for datagrid
   const makeRows = (data) => {
-    return data.map((item) => ({
+    return data.map((item: Data) => ({
       ...item,
       id: item.ID,
     }));
   };
-  // Fetch the data for the initial page.
+
+  // // Fetch the data for the initial page.
   useEffect(() => {
     fetchData(paginationModel.page + 1);
   }, [paginationModel.page]);
@@ -145,7 +150,6 @@ export default function TransactionPage() {
     },
   ];
 
-  const rows = [{ id: 1, from: "random", to: "me" }];
   return (
     <Box>
       <Typography
@@ -163,7 +167,7 @@ export default function TransactionPage() {
           Toolbar: GridToolbar,
         }}
         autoHeight
-        rows={pageState.rows || rows}
+        rows={pageState.rows || []}
         columns={columns}
         rowCount={rowCountState}
         loading={pageState.isLoading}
@@ -177,25 +181,6 @@ export default function TransactionPage() {
           console.log(row);
         }}
       />
-      {/* <DataGrid
-        sx={{ borderRadius: 2 }}
-        components={{
-          Toolbar: GridToolbar,
-        }}
-        disableRowSelectionOnClick
-        onRowDoubleClick={(row) => {
-          // put the double click logic to open the details of a transaction
-          console.log(row);
-        }}
-        columns={columns}
-        autoHeight
-        pagination
-        paginationMode="server"
-        rows={row} //{pageState.data}
-        loading={pageState.isLoading || false}
-        pageSizeOptions={[25]}
-        paginationModel={{ ...pageState, page: pageState.page - 1 }} // the page size start from 0 for mui data grid
-      /> */}
     </Box>
   );
 }
