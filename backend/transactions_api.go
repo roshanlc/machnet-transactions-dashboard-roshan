@@ -74,7 +74,9 @@ func (app *Application) transactionHandler(c *gin.Context) {
 			TotalPages:   total,
 			CurrentPage:  pagination.Page,
 			NextPage:     next,
-			ItemsPerPage: pagination.Limit},
+			ItemsPerPage: pagination.Limit,
+			TotalItems:   count,
+		},
 	})
 }
 

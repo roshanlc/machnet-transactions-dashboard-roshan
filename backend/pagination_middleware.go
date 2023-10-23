@@ -18,6 +18,7 @@ type Pages struct {
 	NextPage     int   `json:"next_page"`
 	TotalPages   int64 `json:"total_pages"`
 	ItemsPerPage int   `json:"limit"`
+	TotalItems   int64 `json:"total_items"`
 }
 
 // middleware that handles pagination
