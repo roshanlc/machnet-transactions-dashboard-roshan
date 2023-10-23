@@ -57,5 +57,6 @@ func main() {
 	}
 	// run at port 9000
 	// hardcoded
+	log.Println("Starting server at :9000")
 	log.Fatal(router.Run(":9000"))
 }

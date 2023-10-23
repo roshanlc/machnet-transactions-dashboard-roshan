@@ -45,6 +45,7 @@ func (app *Application) transactionHandler(c *gin.Context) {
 		Preload("ToAccount.AccountType").
 		Preload("ToAccount.Customer").
 		Preload("ToAccount.Customer.Bank").
+		Preload("PaymentMethod").
 		Preload("TransactionStatus").
 		Find(&tx)
 
@@ -106,6 +107,7 @@ func (app *Application) singleTransactionHandler(c *gin.Context) {
 		Preload("ToAccount.AccountType").
 		Preload("ToAccount.Customer").
 		Preload("ToAccount.Customer.Bank").
+		Preload("PaymentMethod").
 		Preload("TransactionStatus").
 		First(&tx, idVal)
 

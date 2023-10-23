@@ -15,10 +15,12 @@ type Transaction struct {
 	FromAccountID       uint // from account belongs to a transaction
 	ToAccountID         uint // similar as above
 	TransactionStatusID uint
+	PaymentMethodID     uint
 
 	FromAccount       Account           `gorm:"foreignKey:FromAccountID"`
 	ToAccount         Account           `gorm:"foreignKey:ToAccountID"`
 	TransactionStatus TransactionStatus `gorm:"foreignKey:TransactionStatusID"`
+	PaymentMethod     PaymentMethod     `gorm:"foreignKey:PaymentMethodID"`
 }
 
 func (tx Transaction) String() string {

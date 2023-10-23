@@ -228,6 +228,9 @@ func populateDB(db *gorm.DB) {
 		// random index for tx type
 		index := rand.Intn(len(transcType))
 
+		// random index for payment method
+		paymentIndex := rand.Intn(len(paymentMethods))
+
 		// amount of money transaction
 		amt := math.Floor((5000.0 * rand.ExpFloat64()) * math.Pow(-1, float64(index)))
 
@@ -238,6 +241,7 @@ func populateDB(db *gorm.DB) {
 				FromAccountID:       accounts[i].ID,
 				ToAccountID:         accounts[0].ID,
 				TransactionStatusID: transcType[index].ID,
+				PaymentMethodID:     paymentMethods[paymentIndex].ID,
 			}
 
 		} else {
@@ -247,6 +251,7 @@ func populateDB(db *gorm.DB) {
 				FromAccountID:       accounts[i].ID,
 				ToAccountID:         accounts[i+1].ID,
 				TransactionStatusID: transcType[index].ID,
+				PaymentMethodID:     paymentMethods[paymentIndex].ID,
 			}
 		}
 		transx = append(transx, tx)
