@@ -40,7 +40,9 @@ export default function TransactionPage() {
       ...prev,
       rows: makeRows(data.data),
       isLoading: false,
-      pageInfo: { totalRowCount: data.data.length || 0 },
+      pageInfo: {
+        totalRowCount: data.pages.total_items || 0,
+      },
     }));
   };
 
@@ -63,7 +65,13 @@ export default function TransactionPage() {
       headerName: "Date",
       width: 100,
       renderCell: (params) => (
-        <Typography>{params.row.Date.split("T")[0] || "-"}</Typography>
+        <Typography>
+          {/* {params.row.Date.split("T")[0] || "-"} // basic date format */}
+          {new Date(params.row.Date).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+          })}
+        </Typography>
       ),
     },
 
@@ -110,10 +118,10 @@ export default function TransactionPage() {
     {
       field: "PaymentMethod",
       headerName: "Payment Method",
-      width: 150,
+      width: 180,
       renderCell: (params) => (
         <>
-          <Typography>Medthod details</Typography>
+          <Typography>{params.row.PaymentMethod.method || "-"}</Typography>
         </>
       ),
     },
