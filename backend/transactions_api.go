@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"strconv"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/roshanlc/machent-assignment-backend/models"
@@ -17,6 +19,16 @@ type Response struct {
 
 // Handler for the transaction endpoint (GET Method)
 func (app *Application) transactionHandler(c *gin.Context) {
+
+	// Set the Access-Control-Allow-Origin header.
+	c.Header("access-control-allow-origin", "*")
+	c.Header("Vary", "Origin")
+	// c.Header("Vary", "Access-Control-Request-Method")
+	// c.Header("Vary", "Access-Control-Request-Headers")
+
+	fmt.Println(strings.Repeat("------", 5))
+	fmt.Println(c.Request.Header) // TODO: remove this later
+
 	// Pagination details
 	pagination := c.MustGet("pagination").(*Pagination)
 
@@ -79,6 +91,9 @@ func (app *Application) transactionHandler(c *gin.Context) {
 
 // handler for single transaction detail (GET method)
 func (app *Application) singleTransactionHandler(c *gin.Context) {
+	// Set the Access-Control-Allow-Origin header.
+	c.Header("access-control-allow-origin", "*")
+
 	id := c.Param("id")
 
 	idVal, err := strconv.Atoi(id)

@@ -8,6 +8,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/gin-gonic/gin"
 	"github.com/go-faker/faker/v4"
 	"github.com/joho/godotenv"
 	"github.com/roshanlc/machent-assignment-backend/models"
@@ -22,6 +23,7 @@ type DBCredentials struct {
 	Username string
 	Password string
 	DBname   string
+	GinMode  string
 }
 
 // read environment variables
@@ -38,6 +40,7 @@ func readEnv() (*DBCredentials, error) {
 	credentials.Username = os.Getenv("username")
 	credentials.Password = os.Getenv("password")
 	credentials.DBname = os.Getenv("dbname")
+	credentials.GinMode = determineMode(os.Getenv("mode"))
 
 	return &credentials, nil
 }
@@ -257,4 +260,20 @@ func populateDB(db *gorm.DB) {
 
 	log.Println("Succeded in populating db.")
 
+}
+
+// determine mode of server
+func determineMode(mode string) string {
+
+	switch mode {
+	case "debug":
+		return gin.DebugMode
+	case "release":
+		return gin.ReleaseMode
+	case "test":
+		return gin.TestMode
+
+	default:
+		return gin.DebugMode
+	}
 }

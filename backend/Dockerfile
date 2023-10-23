@@ -22,6 +22,8 @@ EXPOSE 9000
 # ENV password test1234
 # ENV dbname transx
 
+# supported: debug, release, test
+ENV mode release
 
 CMD ["app"]
 

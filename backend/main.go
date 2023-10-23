@@ -32,19 +32,22 @@ func main() {
 	// required by controllers
 	app := Application{Credentails: dbCreds, DB: db}
 
-	// cors config
-	config := cors.Config{
-		AllowAllOrigins: true,
-		AllowMethods:    []string{"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"},
-	}
-
-	// cors middleware
-	corsMiddleware := cors.New(config)
+	// set server mode
+	gin.SetMode(dbCreds.GinMode)
 
 	// setup router and controllers
 	router := gin.Default()
+	router.Use(gin.Logger(), gin.Recovery()) // setup default logger and recovery middleware
 
-	router.Use(corsMiddleware)
+	// Setup CORS policy
+	router.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"*", "http://localhost:9001"},
+		// AllowCredentials: true,
+		AllowWebSockets: true,
+		AllowHeaders:    []string{"Content-Type", "Accept", "Origin"},
+		AllowMethods:    []string{"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"},
+		ExposeHeaders:   []string{"access-control-allow-origin", "Access-Control-Allow-Methods", "Vary"},
+	}))
 
 	// basic api versioning
 	v1 := router.Group("/api/v1")
