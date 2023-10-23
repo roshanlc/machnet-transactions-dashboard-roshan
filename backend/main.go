@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -31,8 +32,19 @@ func main() {
 	// required by controllers
 	app := Application{Credentails: dbCreds, DB: db}
 
+	// cors config
+	config := cors.Config{
+		AllowAllOrigins: true,
+		AllowMethods:    []string{"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"},
+	}
+
+	// cors middleware
+	corsMiddleware := cors.New(config)
+
 	// setup router and controllers
 	router := gin.Default()
+
+	router.Use(corsMiddleware)
 
 	// basic api versioning
 	v1 := router.Group("/api/v1")
