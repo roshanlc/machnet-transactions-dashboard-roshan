@@ -1,7 +1,8 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { Data } from "./models";
+import SingleTransactionDialog from "./dialog/SingleTransactionDialog";
 const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL; // fetching from .env file
 
 export default function TransactionPage() {
@@ -150,6 +151,14 @@ export default function TransactionPage() {
     },
   ];
 
+  // open and close dialog for a single transaction details
+  const [dialogToggle, setDialogToggle] = useState<boolean>(false);
+
+  // set the single transaction detail
+  const [singleTx, setSingleTx] = useState<Data>();
+
+  const [currentRow, setCurrentRow] = useState<any>(null);
+
   return (
     <Box>
       <Typography
@@ -161,6 +170,14 @@ export default function TransactionPage() {
         double click on a row to view the details popup.
       </Typography>
 
+      <Button
+        variant="contained"
+        onClick={() => {
+          setDialogToggle(true);
+        }}
+      >
+        Open Dialog
+      </Button>
       <DataGrid
         sx={{ borderRadius: 2 }}
         components={{
@@ -177,9 +194,18 @@ export default function TransactionPage() {
         onPaginationModelChange={setPaginationModel}
         disableRowSelectionOnClick
         onRowDoubleClick={(row) => {
-          // put the double click logic to open the details of a transaction
-          console.log(row);
+          // set the current row
+          setCurrentRow(row);
+          setDialogToggle(true);
         }}
+      />
+
+      <SingleTransactionDialog
+        dialogToggle={dialogToggle}
+        closeToggleFunc={() => {
+          setDialogToggle(false);
+        }}
+        rowData={currentRow}
       />
     </Box>
   );

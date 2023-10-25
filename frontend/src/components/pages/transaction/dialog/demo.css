@@ -1,0 +1,47 @@
+.MuiCard-root {
+  /* Change the border color and width. */
+  /* border: 2px solid #ccc; */
+
+  border-radius: 5px;
+
+  /* Change the background color. */
+  background-color: #fff;
+
+  /* Change the font family. */
+  /* font-family: sans-serif; */
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+  /* Change the font size. */
+  font-size: 14px;
+
+  /* Add a border radius. */
+  border-radius: 4px;
+
+  /* Add a box shadow. */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  /* Change the width. */
+  width: 100%;
+}
+
+.MuiCard-header {
+  /* Change the background color of the header. */
+  background-color: #f7f4f4;
+
+  /* Change the color of the header text. */
+  color: #554e4e;
+
+  /* Change the font weight of the header text. */
+  font-weight: bold;
+}
+
+.MuiCard-content {
+  /* Change the padding of the content. */
+  padding: 5px;
+}
+
+.account-details {
+  margin-top: 5px;
+  padding-left: 25px;
+  border-left: thick solid #18607d;
+}
