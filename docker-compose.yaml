@@ -11,7 +11,7 @@ services:
       - POSTGRES_DB=transx
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 3s
+      interval: 2s
       retries: 3
     networks:
       - home
@@ -21,7 +21,7 @@ services:
     container_name: machnet-backend
     depends_on:
       postgres:
-          condition: service_healthy
+        condition: service_healthy
     ports:
       - "9000:9000"
     environment:
@@ -30,6 +30,20 @@ services:
       - username=postgres
       - password=test1234
       - dbname=transx
+    networks:
+      - home
+
+  frontend:
+    build: ./frontend
+    container_name: machnet-frontend
+    depends_on:
+      backend:
+        condition: service_started
+    ports:
+      - "9001:9001"
+    environment:
+      - VITE_BACKEND_URL=backend/api/v1
+      - host=0.0.0.0
     networks:
       - home
 
