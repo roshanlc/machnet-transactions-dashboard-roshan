@@ -42,8 +42,7 @@ services:
     ports:
       - "9001:9001"
     environment:
-      - VITE_BACKEND_URL=backend/api/v1
-      - host=0.0.0.0
+      - VITE_BACKEND_URL=http://localhost:9000/api/v1
     networks:
       - home
 
