@@ -14,17 +14,46 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import "./demo.css";
 import Textarea from "@mui/joy/Textarea";
-const AccountDetails = () => {
+const AccountDetails = ({ data }) => {
   return (
     <Box className="account-details">
-      <Typography variant="h6">From AR</Typography>
-      <Typography variant="body1">Mercury Checking **123</Typography>
-      <Typography variant="body1">Oct 10 at 7:42PM</Typography>
-      <Typography variant="h6" mt={1}>
-        To Ops / Payroll
+      <Typography variant="h6">
+        From {data?.FromAccount?.Customer?.name || "Sender"}
       </Typography>
-      <Typography variant="body1">Mercury Checking **123</Typography>
-      <Typography variant="body1">Oct 10 at 7:42PM</Typography>
+      <Typography variant="body1">
+        {data?.FromAccount?.Customer?.Bank?.name || "Bank"}{" "}
+        {data?.FromAccount?.number || "Acc Num"}
+      </Typography>
+      <Typography variant="body1">
+        {new Date(data?.Date).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+        })}{" "}
+        at{" "}
+        {new Date(data?.Date).toLocaleTimeString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+        })}
+      </Typography>
+
+      <Typography variant="h6" mt={1}>
+        To {data?.ToAccount?.Customer?.name || "Sender"}
+      </Typography>
+      <Typography variant="body1">
+        {data?.ToAccount?.Customer?.Bank?.name || "Bank"}{" "}
+        {data?.ToAccount?.number || "Acc Num"}
+      </Typography>
+      <Typography variant="body1">
+        {new Date(data?.Date).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+        })}{" "}
+        at{" "}
+        {new Date(data?.Date).toLocaleTimeString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+        })}
+      </Typography>
     </Box>
   );
 };
@@ -43,12 +72,21 @@ export default function SingleTransactionDialog({
         fullWidth
       >
         <DialogTitle>
-          <CardHeader className="MuiCard-header" title="Transfer" />
+          <CardHeader
+            className="MuiCard-header"
+            title={rowData?.row?.PaymentMethod?.method || "Payment Method"}
+          />
         </DialogTitle>
         <DialogContent sx={{ marginTop: -2 }}>
           <CardContent className="MuiCard-content">
-            <Typography variant="h5">- $56,878.90</Typography>
-            <AccountDetails />
+            <Typography
+              variant="h4"
+              color={rowData?.row?.Amount > 0 ? "green" : "error"}
+            >
+              {"$ "}
+              {rowData?.row?.Amount}
+            </Typography>
+            <AccountDetails data={rowData?.row} />
           </CardContent>
           <Divider />
           <CardContent className="MuiCard-content">
@@ -71,9 +109,9 @@ export default function SingleTransactionDialog({
             </Typography>
 
             <Typography variant="h6" mt={1}>
-              MERCURY_WELISENND9SV9
+              XYZHBSHB_198NSHS78SB
               <br />
-              REF#8787
+              REF#{858 * rowData?.row.ID || 585}
             </Typography>
           </CardContent>
         </DialogContent>

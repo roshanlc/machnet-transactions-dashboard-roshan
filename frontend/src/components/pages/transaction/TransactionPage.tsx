@@ -170,14 +170,6 @@ export default function TransactionPage() {
         double click on a row to view the details popup.
       </Typography>
 
-      <Button
-        variant="contained"
-        onClick={() => {
-          setDialogToggle(true);
-        }}
-      >
-        Open Dialog
-      </Button>
       <DataGrid
         sx={{ borderRadius: 2 }}
         components={{
