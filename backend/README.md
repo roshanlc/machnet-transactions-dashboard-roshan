@@ -25,7 +25,7 @@ The backend for the provided assignment by Machnet. Written in Go with Gin(routi
 
 Please check the [main README file](../README.md) for running with Docker compose (backend+db+frontend).
 
-### Run Backend
+### Run Backend Only
 
 ```bash
 # clone the repo and cd into it
@@ -40,6 +40,10 @@ vim .env
 
 go run .
 ```
+
+### DATABASE DESIGN
+
+![Database-Schema](./assets/db-schema-diagram.png)
 
 ### API DOCUMENTATION
 

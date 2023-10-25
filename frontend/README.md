@@ -37,5 +37,9 @@ vim .env
 npm install
 
 ## Production
-npm run build
+npm run prod
+
+# Visit the browser at http://localhost:9001
 ```
+
+Visit the browser at [http://localhost:9001](http://localhost:9001)
