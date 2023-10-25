@@ -73,7 +73,7 @@ export default function TransactionPage() {
       renderCell: (params) => (
         <Typography>
           {/* {params.row.Date.split("T")[0] || "-"} // basic date format */}
-          {new Date(params.row.Date).toLocaleDateString("en-US", {
+          {new Date(params?.row?.Date).toLocaleDateString("en-US", {
             month: "short",
             day: "numeric",
           })}
@@ -86,7 +86,9 @@ export default function TransactionPage() {
       headerName: "From",
       width: 190,
       renderCell: (params) => (
-        <Typography>{params.row.FromAccount.Customer.name || "-"}</Typography>
+        <Typography>
+          {params?.row?.FromAccount?.Customer?.name || "-"}
+        </Typography>
       ),
     },
     {
@@ -94,7 +96,7 @@ export default function TransactionPage() {
       headerName: "To",
       width: 190,
       renderCell: (params) => (
-        <Typography>{params.row.ToAccount.Customer.name || "-"}</Typography>
+        <Typography>{params?.row?.ToAccount?.Customer?.name || "-"}</Typography>
       ),
     },
     {
@@ -104,7 +106,7 @@ export default function TransactionPage() {
       renderCell: (params) => (
         <>
           <Typography color={params.row.Amount > 0 ? "green" : "error"}>
-            $ {params.row.Amount}
+            $ {params?.row?.Amount}
           </Typography>
         </>
       ),
@@ -116,7 +118,7 @@ export default function TransactionPage() {
       renderCell: (params) => (
         <>
           <Typography>
-            {params.row.ToAccount.AccountType.type || "-"}
+            {params?.row?.ToAccount?.AccountType?.type || "-"}
           </Typography>
         </>
       ),
@@ -127,7 +129,7 @@ export default function TransactionPage() {
       width: 180,
       renderCell: (params) => (
         <>
-          <Typography>{params.row.PaymentMethod.method || "-"}</Typography>
+          <Typography>{params?.row?.PaymentMethod?.method || "-"}</Typography>
         </>
       ),
     },
@@ -139,12 +141,12 @@ export default function TransactionPage() {
         <>
           <Typography
             color={
-              params.row.TransactionStatus.status == "Completed"
+              params?.row?.TransactionStatus?.status == "Completed"
                 ? "teal"
                 : "blueviolet"
             }
           >
-            {params.row.TransactionStatus.status || "-"}
+            {params?.row?.TransactionStatus?.status || "-"}
           </Typography>
         </>
       ),
