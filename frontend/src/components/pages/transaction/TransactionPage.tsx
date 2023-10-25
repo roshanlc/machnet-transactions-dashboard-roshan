@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { Data } from "./models";
@@ -153,9 +153,6 @@ export default function TransactionPage() {
 
   // open and close dialog for a single transaction details
   const [dialogToggle, setDialogToggle] = useState<boolean>(false);
-
-  // set the single transaction detail
-  const [singleTx, setSingleTx] = useState<Data>();
 
   const [currentRow, setCurrentRow] = useState<any>(null);
 
