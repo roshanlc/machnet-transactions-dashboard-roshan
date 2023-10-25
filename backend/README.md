@@ -29,9 +29,9 @@ Please check the [main README file](../README.md) for running with Docker compos
 
 ```bash
 # clone the repo and cd into it
-git clone <repo_url>
+git clone https://github.com/roshanlc/machnet-react-golang-assignment.git
 
-cd <directory>
+cd machnet-react-golang-assignment/backend
 
 cp .env.example .env
 
@@ -42,6 +42,8 @@ go run .
 ```
 
 ### DATABASE DESIGN
+
+Further details on database is provided here at [database.md](../database.md)
 
 ![Database-Schema](./assets/db-schema-diagram.png)
 

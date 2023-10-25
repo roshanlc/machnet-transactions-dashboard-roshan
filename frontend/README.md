@@ -6,9 +6,10 @@ The fronend for the provided assignment by Machnet. React + MUI Library
 
 ### Completed
 
-- [x] Transactions API
-- [x] Pagination
-- [x] Postgres DB
+- [x] Transactions Dashboard
+- [x] Single Transaction Popup/Dialog
+- [x] Pagination System
+- [x] 404 Error pages
 - [x] Dockerfile
 
 ### Libraries
@@ -25,9 +26,9 @@ Please check the [main README file](../README.md) for running with Docker compos
 
 ```bash
 # clone the repo and cd into it
-git clone <repo_url>
+git clone https://github.com/roshanlc/machnet-react-golang-assignment.git
 
-cd <directory>
+cd machnet-react-golang-assignment/frontend
 
 cp .env.example .env
 
