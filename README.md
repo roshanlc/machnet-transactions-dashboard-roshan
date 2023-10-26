@@ -15,6 +15,7 @@ The assignment by Machnet.
 
 ### Run With Docker Compose
 
+_NOTE: It might take a minute or two depending on your system._
 ```bash
 # clone the reo
 git clone https://github.com/roshanlc/machnet-react-golang-assignment.git
@@ -23,7 +24,7 @@ git clone https://github.com/roshanlc/machnet-react-golang-assignment.git
 cd machnet-react-golang-assignment
 
 # Might take some time
-docker compose up
+docker-compose up
 
 # Visit browser at http://localhost:9001
 ```
