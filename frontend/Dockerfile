@@ -11,6 +11,9 @@ RUN pnpm install
 
 COPY . .
 
+# copy empty .env file 
+COPY .env.example .env
+
 ## Provide env values
 # ENV VITE_BACKEND_URL http://localhost:9000/api/v1
 
