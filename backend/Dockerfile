@@ -1,17 +1,22 @@
-FROM golang:alpine
+FROM golang:1.21.3-alpine
 
 WORKDIR /usr/arc/app
 
 # pre-copy/cache go.mod for pre-downloading dependencies and only redownloading them in subsequent builds if they change
 COPY go.mod go.sum ./
 
-RUN go mod download 
+# Reduce time by simply copying dependencies
+COPY vendor ./vendor
+
+# RUN go mod download 
 
 #RUN go mod verify
 
 COPY . .
 
-RUN go build -v -o /usr/local/bin/app .
+COPY .env.example .env
+
+RUN go build -ldflags="-w -s" -v -o /usr/local/bin/app .
 
 EXPOSE 9000
 

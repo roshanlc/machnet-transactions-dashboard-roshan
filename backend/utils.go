@@ -14,6 +14,7 @@ import (
 	"github.com/roshanlc/machent-assignment-backend/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 // struct to hold dtabase credentials
@@ -78,7 +79,7 @@ func setupDB(dbCreds *DBCredentials) *gorm.DB {
 	// open db
 	for retries < 3 {
 
-		db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+		db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)})
 
 		if err != nil {
 			if retries > 3 {
