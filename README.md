@@ -76,7 +76,7 @@ Further details on database is provided here at [database.md](./database.md)
 | Endpoint                 | Description                                 | Supported Query Params                                  | Response | Pagination Support |
 | ------------------------ | ------------------------------------------- | ------------------------------------------------------- | -------- | ------------------ |
 | /api/v1/transactions     | Details of (multiple)transactions in system | **limit** (no.of items/page)<hr/>**page**(current page) | JSON     | YES                |
-| /api/v1/transactions/:id | Detail of a single transaction              |                                                         | JSON     | NO                 |
+| /api/v1/transactions/:id | Detail of a single transaction              |                                                         | JSON     | -                  |
 
 ### API RESPONSE
 
@@ -195,4 +195,3 @@ curl "http://localhost:9000/api/v1/transactions/1
 }
 ```
 ````
-
