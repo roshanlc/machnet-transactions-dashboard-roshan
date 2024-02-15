@@ -1,8 +1,10 @@
-import { Avatar, Box, Typography } from "@mui/material";
+import { Avatar, Box, Chip, Typography } from "@mui/material";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { Data } from "./models";
 import SingleTransactionDialog from "./dialog/SingleTransactionDialog";
+import PendingIcon from '@mui/icons-material/Pending';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL; // fetching from .env file
 
 export default function TransactionPage() {
@@ -152,19 +154,22 @@ export default function TransactionPage() {
     {
       field: "TransactionStatus",
       headerName: "Status",
-      width: 130,
+      width: 150,
       renderCell: (params) => (
-        <>
-          <Typography
-            color={
-              params?.row?.TransactionStatus?.status == "Completed"
-                ? "teal"
-                : "blueviolet"
-            }
+        <Chip
+          size="medium"
+          variant="outlined"
+          color = {params?.row?.TransactionStatus?.status == "Completed" ? "success" : "primary"}
+          icon={params?.row?.TransactionStatus?.status == "Pending"? <PendingIcon /> : <DoneAllIcon/>}
+          label={
+            <Typography
+         
           >
             {params?.row?.TransactionStatus?.status || "-"}
           </Typography>
-        </>
+          }
+        />
+
       ),
     },
   ];
