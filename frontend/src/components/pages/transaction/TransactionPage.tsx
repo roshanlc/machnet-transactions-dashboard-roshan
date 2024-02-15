@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Avatar, Box, Typography } from "@mui/material";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { Data } from "./models";
@@ -84,19 +84,35 @@ export default function TransactionPage() {
     {
       field: "FromAccount",
       headerName: "From",
-      width: 190,
+      width: 252,
       renderCell: (params) => (
-        <Typography>
-          {params?.row?.FromAccount?.Customer?.name || "-"}
-        </Typography>
+        <>
+          <Avatar alt="From" color="primary"
+            sx={{ width: 30, height: 30, bgcolor: getRandomColor() }}>
+            {getInitials(params?.row?.FromAccount?.Customer?.name)}
+          </Avatar>
+          <Box pr={2} />
+          <Typography>
+            {params?.row?.FromAccount?.Customer?.name || "-"}
+          </Typography>
+        </>
       ),
     },
     {
       field: "ToAccount",
       headerName: "To",
-      width: 190,
+      width: 252,
       renderCell: (params) => (
-        <Typography>{params?.row?.ToAccount?.Customer?.name || "-"}</Typography>
+        <>
+          <Avatar alt="From" color="primary"
+            sx={{ width: 30, height: 30, bgcolor: getRandomColor() }}>
+            {getInitials(params?.row?.ToAccount?.Customer?.name)}
+          </Avatar>
+          <Box pr={2} />
+          <Typography>
+            {params?.row?.ToAccount?.Customer?.name || "-"}
+          </Typography>
+        </>
       ),
     },
     {
@@ -200,4 +216,31 @@ export default function TransactionPage() {
       />
     </Box>
   );
+}
+
+/**
+ * Generate random color
+ * @returns random color
+ */
+function getRandomColor(): string {
+  // NOTE: Personally selected from colorhunt.io
+  const palettes = [
+    "#294B29", "#50623A", "#789461", "#E19898", "#A2678A", "#4D3C77", "#860A35", "#AF2655",
+    "#A3B763", "#219C90", "#E9B824", "#EE9322", "#D83F31", "#252B48", "#445069",
+    "#5B9A8B", "#1C6758", "#3D8361", "#D6CDA4",
+  ];
+  const randomIndex = Math.floor(Math.random() * palettes.length);
+
+  // Return the selected color palette
+  return palettes[randomIndex];
+}
+
+/**
+ * Extrat initials from given name
+ * @param name - name of the individual
+ * @returns initials of the provided name
+ */
+function getInitials(name: string): string {
+  const names: Array<string> = name.split(" ");
+  return names.slice(Math.max(names.length - 2, 1)).map((n) => n[0]).join("");
 }
