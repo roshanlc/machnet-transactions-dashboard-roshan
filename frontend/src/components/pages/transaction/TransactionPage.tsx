@@ -5,6 +5,7 @@ import { Data } from "./models";
 import SingleTransactionDialog from "./dialog/SingleTransactionDialog";
 import PendingIcon from '@mui/icons-material/Pending';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
+import { East, KeyboardArrowRight, RequestPage, Send, SendSharp, West } from "@mui/icons-material";
 const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL; // fetching from .env file
 
 export default function TransactionPage() {
@@ -147,7 +148,10 @@ export default function TransactionPage() {
       width: 180,
       renderCell: (params) => (
         <>
-          <Typography>{params?.row?.PaymentMethod?.method || "-"}</Typography>
+          {params?.row?.PaymentMethod?.method == "Transfer" && (params.row.id % 2 == 0 ? <East /> : <West />)}
+          {params?.row?.PaymentMethod?.method == "Wiring" && <SendSharp />}
+          {params?.row?.PaymentMethod?.method == "Cheque Deposit" && <RequestPage />}
+          <Typography pl={1}>{params?.row?.PaymentMethod?.method || "-"}</Typography>
         </>
       ),
     },
