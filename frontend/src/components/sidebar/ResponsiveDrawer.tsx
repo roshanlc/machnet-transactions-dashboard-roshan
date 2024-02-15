@@ -20,7 +20,8 @@ import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import PaymentIcon from "@mui/icons-material/Payment";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import "./sidebar.css";
 
 const drawerWidth = 240;
 
@@ -42,13 +43,17 @@ export default function ResponsiveDrawer(props: Props) {
     setMobileOpen(!mobileOpen);
   };
 
+  // For highlighting the active link
+  const location = useLocation();
+  const pathname = location.pathname;
+
   // hardcoding the list of drawer
   const drawer = (
     <div>
       <Toolbar />
       <Divider />
       <List>
-        <ListItem key="home" disablePadding>
+        <ListItem key="home" disablePadding className={pathname === "/home" ? "active" : ""}>
           <ListItemButton
             onClick={() => {
               navigate("/home");
@@ -60,7 +65,7 @@ export default function ResponsiveDrawer(props: Props) {
             <ListItemText primary={"Home"} />
           </ListItemButton>
         </ListItem>
-        <ListItem key="transx" disablePadding>
+        <ListItem key="transx" disablePadding className={pathname === "/" ? "active" : ""} >
           <ListItemButton
             onClick={() => {
               navigate("/");
@@ -73,7 +78,7 @@ export default function ResponsiveDrawer(props: Props) {
           </ListItemButton>
         </ListItem>
 
-        <ListItem key="payments" disablePadding>
+        <ListItem key="payments" disablePadding className={pathname === "/payments" ? "active" : ""}>
           <ListItemButton
             onClick={() => {
               navigate("/payments");
@@ -86,7 +91,7 @@ export default function ResponsiveDrawer(props: Props) {
           </ListItemButton>
         </ListItem>
 
-        <ListItem key="cards" disablePadding>
+        <ListItem key="cards" disablePadding className={pathname === "/cards" ? "active" : ""}>
           <ListItemButton
             onClick={() => {
               navigate("/cards");
@@ -99,7 +104,7 @@ export default function ResponsiveDrawer(props: Props) {
           </ListItemButton>
         </ListItem>
 
-        <ListItem key="capital" disablePadding>
+        <ListItem key="capital" disablePadding className={pathname === "/capital" ? "active" : ""}>
           <ListItemButton
             onClick={() => {
               navigate("/capital");
@@ -112,7 +117,7 @@ export default function ResponsiveDrawer(props: Props) {
           </ListItemButton>
         </ListItem>
 
-        <ListItem key="accounts" disablePadding>
+        <ListItem key="accounts" disablePadding className={pathname === "/accounts" ? "active" : ""}>
           <ListItemButton
             onClick={() => {
               navigate("/accounts");
