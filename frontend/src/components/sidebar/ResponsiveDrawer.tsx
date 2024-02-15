@@ -22,6 +22,7 @@ import QueryStatsIcon from "@mui/icons-material/QueryStats";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./sidebar.css";
+import { KeyboardArrowDown } from "@mui/icons-material";
 
 const drawerWidth = 240;
 
@@ -88,6 +89,7 @@ export default function ResponsiveDrawer(props: Props) {
               <LocalAtmIcon />
             </ListItemIcon>
             <ListItemText primary={"Payments"} />
+            <KeyboardArrowDown />
           </ListItemButton>
         </ListItem>
 
@@ -127,6 +129,7 @@ export default function ResponsiveDrawer(props: Props) {
               <AccountBalanceIcon />
             </ListItemIcon>
             <ListItemText primary={"Accounts"} />
+            <KeyboardArrowDown />
           </ListItemButton>
         </ListItem>
       </List>

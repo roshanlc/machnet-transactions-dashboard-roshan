@@ -123,7 +123,7 @@ export default function TransactionPage() {
       width: 150,
       renderCell: (params) => (
         <>
-          <Typography color={params.row.Amount > 0 ? "green" : "error"}>
+          <Typography color={params?.row?.TransactionStatus?.status == "Pending" ? "#4a4e69" : params.row.Amount > 0 ? "green" : "error"}>
             $ {params?.row?.Amount}
           </Typography>
         </>
@@ -159,14 +159,14 @@ export default function TransactionPage() {
         <Chip
           size="medium"
           variant="outlined"
-          color = {params?.row?.TransactionStatus?.status == "Completed" ? "success" : "primary"}
-          icon={params?.row?.TransactionStatus?.status == "Pending"? <PendingIcon /> : <DoneAllIcon/>}
+          color={params?.row?.TransactionStatus?.status == "Completed" ? "success" : "primary"}
+          icon={params?.row?.TransactionStatus?.status == "Pending" ? <PendingIcon /> : <DoneAllIcon />}
           label={
             <Typography
-         
-          >
-            {params?.row?.TransactionStatus?.status || "-"}
-          </Typography>
+
+            >
+              {params?.row?.TransactionStatus?.status || "-"}
+            </Typography>
           }
         />
 
@@ -183,8 +183,8 @@ export default function TransactionPage() {
     <Box>
       <Typography
         variant="body1"
-        pb={1}
-        sx={{ backgroundColor: "yellow", marginBottom: 1 }}
+        p={1}
+        sx={{ backgroundColor: "yellow", marginBottom: 2 }}
       >
         <i>Note:</i> Pagination Controls are at bottom of the data table. Please
         double click on a row to view the details popup.
