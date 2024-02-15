@@ -153,11 +153,14 @@ export default function ResponsiveDrawer(props: Props) {
       <AppBar
         position="fixed"
         sx={{
+          backgroundColor: "#537188",
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
+          fontSmooth: "auto",
+          fontFamily: "Inter, sans-serif",
         }}
       >
-        <Toolbar>
+        <Toolbar variant="regular">
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -168,7 +171,7 @@ export default function ResponsiveDrawer(props: Props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Transaction Dashboard MVP
+            Transactions Dashboard MVP
           </Typography>
         </Toolbar>
       </AppBar>
