@@ -2,22 +2,19 @@ import {
   Card,
   CardHeader,
   CardContent,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
   Button,
   Divider,
   Typography,
   Box,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import "./demo.css";
 import Textarea from "@mui/joy/Textarea";
+import { Modal, ModalClose, ModalDialog } from "@mui/joy";
+
 const AccountDetails = ({ data }) => {
   return (
     <Box className="account-details">
-      <Typography variant="h6">
+      <Typography variant="h6" mt={1}>
         From {data?.FromAccount?.Customer?.name || "Sender"}
       </Typography>
       <Typography variant="body1">
@@ -36,7 +33,7 @@ const AccountDetails = ({ data }) => {
         })}
       </Typography>
 
-      <Typography variant="h6" mt={1}>
+      <Typography variant="h6" mt={2}>
         To {data?.ToAccount?.Customer?.name || "Sender"}
       </Typography>
       <Typography variant="body1">
@@ -60,24 +57,19 @@ const AccountDetails = ({ data }) => {
 
 export default function SingleTransactionDialog({
   dialogToggle = false,
-  closeToggleFunc = () => {},
+  closeToggleFunc = () => { },
   rowData = null,
 }) {
   return (
     <Card className="MuiCard-root">
-      <Dialog
-        open={dialogToggle}
-        onClose={closeToggleFunc}
-        maxWidth="sm"
-        fullWidth
-      >
-        <DialogTitle>
+      <Modal open={dialogToggle}
+        onClose={closeToggleFunc}>
+        <ModalDialog size="md" minWidth={"sm"}>
           <CardHeader
             className="MuiCard-header"
             title={rowData?.row?.PaymentMethod?.method || "Payment Method"}
           />
-        </DialogTitle>
-        <DialogContent sx={{ marginTop: -2 }}>
+          <ModalClose onClick={closeToggleFunc} variant="soft" sx={{ mr: 2, mt: 2 }} />
           <CardContent className="MuiCard-content">
             <Typography
               variant="h4"
@@ -100,33 +92,24 @@ export default function SingleTransactionDialog({
               size="md"
               variant="outlined"
             />
-            <Typography variant="body1" color={"GrayText"} mt={1}>
-              + Add an attachment
+            <Typography variant="body1" mt={1}>
+              <Button variant="text" color="inherit">
+                + Add an attachment
+              </Button>
             </Typography>
 
-            <Typography variant="body1" color={"GrayText"} mt={1}>
+            <Typography variant="body1" color={"GrayText"} mt={3}>
               Bank description
             </Typography>
 
-            <Typography variant="h6" mt={1}>
+            <Typography variant="h6" mt={0}>
               XYZHBSHB_198NSHS78SB
               <br />
               REF#{858 * rowData?.row.ID || 585}
             </Typography>
           </CardContent>
-        </DialogContent>
-        <Divider />
-        <DialogActions>
-          <span>Press "ESC" or click "Close" to close the dialog.</span>
-          <Button
-            variant="outlined"
-            startIcon={<CloseIcon />}
-            onClick={closeToggleFunc}
-          >
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
+        </ModalDialog>
+      </Modal>
     </Card>
   );
 }
