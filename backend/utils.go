@@ -133,7 +133,7 @@ func populateDB(db *gorm.DB) {
 	// methods of payment
 	paymentMethods := []models.PaymentMethod{
 		{Method: "Transfer"},
-		{Method: "Check Deposit"},
+		{Method: "Cheque Deposit"},
 		{Method: "Wiring"},
 	}
 
