@@ -39,3 +39,4 @@ The explanation about tables are:
 7. Transactions
 
 - Table Entity to store details about all the transactions that has occurred.
+
