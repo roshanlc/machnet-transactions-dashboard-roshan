@@ -136,9 +136,15 @@ export default function TransactionPage() {
       width: 150,
       renderCell: (params) => (
         <>
-          <Typography>
-            {params?.row?.ToAccount?.AccountType?.type || "-"}
-          </Typography>
+          <Chip variant="outlined"
+            size="medium"
+            sx={{ minWidth: 85, borderRadius: 1.5 }}
+            label={
+              <Typography>
+                {params?.row?.ToAccount?.AccountType?.type || "-"}
+              </Typography>
+            }>
+          </Chip>
         </>
       ),
     },
