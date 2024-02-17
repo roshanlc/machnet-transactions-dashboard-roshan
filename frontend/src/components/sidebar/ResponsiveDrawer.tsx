@@ -226,6 +226,11 @@ export default function ResponsiveDrawer(props: Props) {
       >
         <Toolbar />
         {props.children}
+        <Typography variant="h6" m={1} p={1} >
+          Author: Roshan Lamichhane,{" "}
+          <a href="https://www.roshan-lamichhane.com.np/" target="_blank">https://www.roshan-lamichhane.com.np/</a>,{" "}
+          <a href="https://github.com/roshanlc" target="_blank">https://github.com/roshanlc</a>
+        </Typography>
       </Box>
     </Box>
   );
