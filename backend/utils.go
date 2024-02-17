@@ -233,7 +233,7 @@ func populateDB(db *gorm.DB) {
 		paymentIndex := rand.Intn(len(paymentMethods))
 
 		// amount of money transaction
-		amt := math.Floor((5000.0 * rand.ExpFloat64()) * math.Pow(-1, float64(index)))
+		amt := roundFloat((5000.0*rand.ExpFloat64())*math.Pow(-1, float64(index)), 2)
 
 		if i == len(accounts)-1 {
 			tx = models.Transaction{
@@ -266,6 +266,12 @@ func populateDB(db *gorm.DB) {
 
 	log.Println("Succeded in populating db.")
 
+}
+
+// round a float to a given precision
+func roundFloat(val float64, precision uint) float64 {
+	ratio := math.Pow(10, float64(precision))
+	return math.Round(val*ratio) / ratio
 }
 
 // determine mode of server
