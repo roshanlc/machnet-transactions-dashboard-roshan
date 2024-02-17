@@ -32,8 +32,18 @@ func main() {
 	// required by controllers
 	app := Application{Credentails: dbCreds, DB: db}
 
+	router := SetupRouter(&app)
+
+	// run at port 9000
+	// hardcoded
+	log.Println("Starting server at :9000")
+	log.Fatal(router.Run(":9000"))
+}
+
+// setupRouter sets up the router and controllers
+func SetupRouter(app *Application) *gin.Engine {
 	// set server mode
-	gin.SetMode(dbCreds.GinMode)
+	gin.SetMode(app.Credentails.GinMode)
 
 	// setup router and controllers
 	router := gin.Default()
@@ -55,8 +65,6 @@ func main() {
 		v1.GET("/transactions/:id", app.singleTransactionHandler)
 		v1.GET("/transactions", paginationMiddleware, app.transactionHandler)
 	}
-	// run at port 9000
-	// hardcoded
-	log.Println("Starting server at :9000")
-	log.Fatal(router.Run(":9000"))
+
+	return router
 }
