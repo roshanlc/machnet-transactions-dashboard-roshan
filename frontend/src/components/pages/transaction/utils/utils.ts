@@ -24,3 +24,11 @@ export function getInitials(name: string): string {
     const names: Array<string> = name.split(" ");
     return names.slice(Math.max(names.length - 2, 1)).map((n) => n[0]).join("");
 }
+
+/**
+ * USDollar Currency format
+ */
+export const USDollar = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+});

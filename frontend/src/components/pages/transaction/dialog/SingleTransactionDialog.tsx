@@ -13,6 +13,7 @@ import Textarea from "@mui/joy/Textarea";
 import { Modal, ModalClose, ModalDialog, Stack } from "@mui/joy";
 import PendingIcon from '@mui/icons-material/Pending';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
+import { USDollar } from "../utils/utils";
 
 const AccountDetails = ({ data }) => {
   return (
@@ -99,7 +100,7 @@ export default function SingleTransactionDialog({
             <Typography
               variant="h4"
               color={rowData?.row?.TransactionStatus?.status == "Pending" ? "#4a4e69" : rowData?.row?.Amount > 0 ? "green" : "error"}>
-              $ {rowData?.row?.Amount.toString().split(".")[0] || "-"}
+              {USDollar.format(rowData?.row?.Amount).split(".")[0] || "-"}
               <sup style={{ fontSize: "1.3rem" }}>
                 {rowData?.row?.Amount.toString().split(".")[1] && "."}
                 {rowData?.row?.Amount.toString().split(".")[1] || ""}

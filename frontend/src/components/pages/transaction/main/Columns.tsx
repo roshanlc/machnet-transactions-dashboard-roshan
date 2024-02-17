@@ -3,7 +3,7 @@ import { GridColDef } from "@mui/x-data-grid";
 import PendingIcon from '@mui/icons-material/Pending';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import { East, RequestPage, SendSharp, West } from "@mui/icons-material";
-import { getRandomColor, getInitials } from "../utils/utils";
+import { getRandomColor, getInitials, USDollar } from "../utils/utils";
 
 // columns for data grid
 export const gridColumns: GridColDef[] = [
@@ -64,7 +64,7 @@ export const gridColumns: GridColDef[] = [
         renderCell: (params) => (
             <>
                 <Typography fontSize={"1.2rem"} color={params?.row?.TransactionStatus?.status == "Pending" ? "#4a4e69" : params.row.Amount > 0 ? "green" : "error"}>
-                    $ {params?.row?.Amount.toString().split(".")[0] || "-"}
+                    {USDollar.format(params?.row?.Amount).split(".")[0] || "-"}
                     <sup style={{ fontSize: "0.83rem" }}>
                         {params?.row?.Amount.toString().split(".")[1] && "."}
                         {params?.row?.Amount.toString().split(".")[1] || ""}
