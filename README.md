@@ -1,10 +1,12 @@
-## Machent Assignment (Go + React)
+## Transactions Dashboard MVP: Machent Assignment (Go + React)
 
 The assignment by Machnet.
 
 - Backend Written in Go
 - Postgres for DB
 - Frontend With React (Typescript)
+
+> The screenshots from dashboard are available at the end.
 
 ### Author Details:
 
@@ -195,3 +197,11 @@ curl "http://localhost:9000/api/v1/transactions/1
 }
 ```
 ````
+
+### Screenshots
+
+![Transactions dashboard](./assests/tx-dashboard.png)
+![Detail popup](./assests/detail-popup.png)
+![Error Page](./assests/error-404.png)
+
+P.S.: Experience it yourself by running the project.
