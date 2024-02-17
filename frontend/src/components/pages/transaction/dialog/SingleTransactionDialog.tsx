@@ -6,10 +6,13 @@ import {
   Divider,
   Typography,
   Box,
+  Chip,
 } from "@mui/material";
 import "./demo.css";
 import Textarea from "@mui/joy/Textarea";
-import { Modal, ModalClose, ModalDialog } from "@mui/joy";
+import { Modal, ModalClose, ModalDialog, Stack } from "@mui/joy";
+import PendingIcon from '@mui/icons-material/Pending';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 const AccountDetails = ({ data }) => {
   return (
@@ -67,17 +70,42 @@ export default function SingleTransactionDialog({
         <ModalDialog size="md" minWidth={"sm"}>
           <CardHeader
             className="MuiCard-header"
-            title={rowData?.row?.PaymentMethod?.method || "Payment Method"}
+            title={
+              <Stack direction="row" spacing={5}>
+                <Typography
+                  variant="h4"
+                >
+                  {rowData?.row?.PaymentMethod?.method || "Payment Method"}
+                </Typography>
+
+                <Chip
+                  size="medium"
+                  variant="outlined"
+                  color={rowData?.row?.TransactionStatus?.status == "Completed" ? "success" : "primary"}
+                  icon={rowData?.row?.TransactionStatus?.status == "Pending" ? <PendingIcon /> : <DoneAllIcon />}
+                  sx={{ position: "relative", top: "8px" }}
+                  label={
+                    <Typography
+                    >
+                      {rowData?.row?.TransactionStatus?.status || ""}
+                    </Typography>
+                  }
+                />
+              </Stack>
+            }
           />
           <ModalClose onClick={closeToggleFunc} variant="soft" sx={{ mr: 2, mt: 2 }} />
           <CardContent className="MuiCard-content">
             <Typography
               variant="h4"
-              color={rowData?.row?.Amount > 0 ? "green" : "error"}
-            >
-              {"$ "}
-              {rowData?.row?.Amount}
+              color={rowData?.row?.TransactionStatus?.status == "Pending" ? "#4a4e69" : rowData?.row?.Amount > 0 ? "green" : "error"}>
+              $ {rowData?.row?.Amount.toString().split(".")[0] || "-"}
+              <sup style={{ fontSize: "1.3rem" }}>
+                {rowData?.row?.Amount.toString().split(".")[1] && "."}
+                {rowData?.row?.Amount.toString().split(".")[1] || ""}
+              </sup>
             </Typography>
+
             <AccountDetails data={rowData?.row} />
           </CardContent>
           <Divider />

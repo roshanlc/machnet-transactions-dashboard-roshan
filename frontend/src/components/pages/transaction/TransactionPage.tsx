@@ -124,8 +124,12 @@ export default function TransactionPage() {
       width: 150,
       renderCell: (params) => (
         <>
-          <Typography color={params?.row?.TransactionStatus?.status == "Pending" ? "#4a4e69" : params.row.Amount > 0 ? "green" : "error"}>
-            $ {params?.row?.Amount}
+          <Typography fontSize={"1.2rem"} color={params?.row?.TransactionStatus?.status == "Pending" ? "#4a4e69" : params.row.Amount > 0 ? "green" : "error"}>
+            $ {params?.row?.Amount.toString().split(".")[0] || "-"}
+            <sup style={{fontSize: "0.83rem"}}>
+              {params?.row?.Amount.toString().split(".")[1] && "."}
+              {params?.row?.Amount.toString().split(".")[1] || ""}
+            </sup>
           </Typography>
         </>
       ),
