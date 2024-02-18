@@ -14,6 +14,8 @@ import { Modal, ModalClose, ModalDialog, Stack } from "@mui/joy";
 import PendingIcon from '@mui/icons-material/Pending';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import { USDollar } from "../utils/utils";
+import AttachmentIcon from '@mui/icons-material/Attachment';
+import { RotateLeft } from "@mui/icons-material";
 
 const AccountDetails = ({ data }) => {
   return (
@@ -137,6 +139,8 @@ export default function SingleTransactionDialog({
               REF#{858 * rowData?.row.ID || 585}
             </Typography>
           </CardContent>
+          <Divider />
+          <AttachmentIcon sx={{marginLeft: 1}}/>
         </ModalDialog>
       </Modal>
     </Card>
