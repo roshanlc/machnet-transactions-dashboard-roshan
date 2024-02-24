@@ -20,10 +20,10 @@ The assignment by Machnet.
 _NOTE: It might take a minute or two depending on your system._
 ```bash
 # clone the reo
-git clone https://github.com/roshanlc/machnet-react-golang-assignment.git
+git clone https://github.com/roshanlc/machnet-transactions-dashboard-roshan.git
 
 # cd into the directory
-cd machnet-react-golang-assignment
+cd machnet-transactions-dashboard-roshan
 
 # Might take some time
 docker compose up
